@@ -4,34 +4,63 @@ using namespace bullpgia;
 
 calcFunOutput bullpgia::calculateBullAndPgia(const string choice, const string guess)
 {
-    if (choice.length() == 0 || choice.length() != guess.length() || guess.length() == 0)
-    {
-        throw std::invalid_argument("one of input strings has incorrect length -> it has to be a positive Neutral number");
-    }
+    // if (choice.length() == 0 || choice.length() != guess.length() || guess.length() == 0)
+    // {
+    //     throw std::invalid_argument("one of input strings has incorrect length -> it has to be a positive Neutral number");
+    // }
     string choiceCpoy = "";
     string guessCopy = "";
     uint bull = 0, pgia = 0;
     choiceCpoy.append(choice);
     guessCopy.append(guess);
-    for (int i = 0; i < choiceCpoy.length(); i++)
+    if (choiceCpoy.length() > guessCopy.length())
     {
-        if (choiceCpoy[i] == guessCopy[i])
+        for (int i = 0; i < choiceCpoy.length() && i < guessCopy.length(); i++)
         {
-            bull++;
-            guessCopy[i] = 'a';
-            choiceCpoy[i] = 'a';
+            if (guessCopy[i] == choiceCpoy[i])
+            {
+                bull++;
+                guessCopy[i] = 'a';
+                choiceCpoy[i] = 'a';
+            }
+        }
+
+        for (int i = 0; i < guessCopy.length(); i++)
+        {
+            for (int j = 0; j < choiceCpoy.length(); j++)
+            {
+                if (guessCopy[j] != 'a' && choiceCpoy[i] != 'a' && guessCopy[j] == choiceCpoy[i])
+                {
+                    guessCopy[j] = 'a';
+                    choiceCpoy[i] = 'a';
+                    pgia++;
+                }
+            }
         }
     }
-
-    for (int i = 0; i < choiceCpoy.length(); i++)
+    else
     {
-        for (int j = 0; j < guessCopy.length(); j++)
+
+       for (int i = 0; i < guessCopy.length() && i < choiceCpoy.length(); i++)
         {
-            if (guessCopy[j] != 'a' && choiceCpoy[i] != 'a' && guessCopy[j] == choiceCpoy[i])
+            if (guessCopy[i] == choiceCpoy[i])
             {
-                guessCopy[j]='a';
-                choiceCpoy[i]='a';
-                pgia++;
+                bull++;
+                guessCopy[i] = 'a';
+                choiceCpoy[i] = 'a';
+            }
+        }
+
+        for (int i = 0; i < choiceCpoy.length(); i++)
+        {
+            for (int j = 0; j < guessCopy.length(); j++)
+            {
+                if (guessCopy[j] != 'a' && choiceCpoy[i] != 'a' && guessCopy[j] == choiceCpoy[i])
+                {
+                    guessCopy[j] = 'a';
+                    choiceCpoy[i] = 'a';
+                    pgia++;
+                }
             }
         }
     }
