@@ -91,110 +91,12 @@ int main()
 			.CHECK_THROWS(calculateBullAndPgia("123", "123456"));
 
 		//*****************RandomGuesser methods test*****************
-
-		// RandomGuesser randTestGuesser{};
-		// calcFunOutput reply{5, 0};
-		// //LEARN METHOD - **BEFORE** we created a new game - should throw:
-		// testcase.setname("[RandomGuesser]learn - throws before starting new game test")
-		// 	.CHECK_THROWS(randTestGuesser.learn(reply));
-		// //now STARTING new game
-		// testcase.setname("[RandomGuesser]startNewGame - throws on args which are <=0")
-		// 	.CHECK_THROWS(randTestGuesser.startNewGame(0));
-		// ///////////////////////////
-		// testcase.setname("[RandomGuesser]startNewGame - throws on args which are <=0")
-		// 	.CHECK_THROWS(randTestGuesser.startNewGame(-7));
-		// //////////////////////////
-		// testcase.setname("[RandomGuesser]startNewGame - sanity test")
-		// 	.CHECK_OK(randTestGuesser.startNewGame(5));
-		// //LEARN METHOD - sanity test:
-		// //first - checking that the function works on logically correct numbers
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{4, 0};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{3, 0};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{2, 0};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{1, 0};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 0};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 1};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 2};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 3};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 4};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{0, 5};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{1, 1};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{2, 2};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// reply = calcFunOutput{2, 3};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ///////////////////////////////////////////
-		// reply = calcFunOutput{3, 2};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ///////////////////////////////////////////
-		// reply = calcFunOutput{4, 1};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// //////////////////////////////////////////
-		// reply = calcFunOutput{1, 4};
-		// testcase.setname("[RandomGuesser]learn - sanity test")
-		// 	.CHECK_OK(randTestGuesser.learn(reply));
-		// ////////////////////////////////////////////
-		// //second - checking that the function throws on logically incorrect numbers
-		// reply = calcFunOutput{6, 0};
-		// testcase.setname("[RandomGuesser]learn - throwing exceptions test")
-		// 	.CHECK_THROWS(randTestGuesser.learn(reply));
-		// /////////////////////////////////////
-		// reply = calcFunOutput{3, 3};
-		// testcase.setname("[RandomGuesser]learn - throwing exceptions test")
-		// 	.CHECK_THROWS(randTestGuesser.learn(reply));
-		// ///////////////////////////////////
-		// reply = calcFunOutput{70, 0};
-		// testcase.setname("[RandomGuesser]learn - throwing exceptions test")
-		// 	.CHECK_THROWS(randTestGuesser.learn(reply));
-		// ///////////////////////////////////
-		// //only validating that 'play' is working (not a smart guesser so shouldn't guess in any amount of guesses):
-		// testcase.setname("[RandomGuesser]play- sanity test")
-		// .CHECK_OK(play(randy, randTestGuesser, 5, 10))
-		// .CHECK_THROWS(play(randy, randTestGuesser, 0, 10))
-		// .CHECK_THROWS(play(randy, randTestGuesser, -1, 10))
-		// .CHECK_THROWS(play(randy, randTestGuesser, 5, 0))
-		// .CHECK_THROWS(play(randy, randTestGuesser, 5, -1));
+		RandomGuesser randTestGuesser{};
+		testcase.setname("[RandomGuesser]startNewGame - sanity test")
+			.CHECK_OK(randTestGuesser.startNewGame(5));
+		//only validating that 'play' is working (not a smart guesser so shouldn't guess in any amount of guesses):
+		testcase.setname("[RandomGuesser]play- sanity test")
+			.CHECK_OK(play(randy, randTestGuesser, 5, 10));
 
 		//*****************SmartGuesser methods test*****************
 
@@ -296,11 +198,6 @@ int main()
 		///////////////////////////////////
 		//validating that 'play' is working correctly :
 		testcase.setname("[SmartGuesser]play- sanity test")
-			//.CHECK_OK(play(randy, randTestGuesser, 5, 10))
-			// .CHECK_THROWS(play(randy, randTestGuesser, 0, 10))
-			// .CHECK_THROWS(play(randy, randTestGuesser, -1, 10))
-			// .CHECK_THROWS(play(randy, randTestGuesser, 5, 0))
-			// .CHECK_THROWS(play(randy, randTestGuesser, 5, -1))
 			.CHECK_EQUAL(play(randy, smarty, 1, 100) <= 100, true)
 			.CHECK_EQUAL(play(randy, smarty, 2, 100) <= 100, true)
 			.CHECK_EQUAL(play(randy, smarty, 3, 100) <= 100, true)
