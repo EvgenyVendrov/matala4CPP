@@ -16,7 +16,7 @@ using namespace std;
 using namespace bullpgia;
 
 int main() {
-	cout<<bullpgia::calculateBullAndPgia("41","1234");
+	cout<<bullpgia::calculateBullAndPgia("77491","1234");
 	
 	
 	

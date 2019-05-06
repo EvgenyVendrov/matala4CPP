@@ -29,10 +29,11 @@ calcFunOutput bullpgia::calculateBullAndPgia(const string choice, const string g
         {
             for (int j = 0; j < choiceCpoy.length(); j++)
             {
-                if (guessCopy[j] != 'a' && choiceCpoy[i] != 'a' && guessCopy[j] == choiceCpoy[i])
+                //std::cout<<guessCopy[j]<<","<<choiceCpoy[i]
+                if (guessCopy[i] != 'a' && choiceCpoy[j] != 'a' && guessCopy[i] == choiceCpoy[j])
                 {
-                    guessCopy[j] = 'a';
-                    choiceCpoy[i] = 'a';
+                    guessCopy[i] = 'a';
+                    choiceCpoy[j] = 'a';
                     pgia++;
                 }
             }
