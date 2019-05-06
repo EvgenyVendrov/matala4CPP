@@ -11,7 +11,7 @@ class SmartGuesser : public bullpgia::Guesser
 public:
     SmartGuesser();
     string guess() override;
-    void startNewGame(uint length) override;
+    void startNewGame(int length) override;
     void learn(calcFunOutput arg) override;
 
 private:
@@ -26,5 +26,6 @@ private:
     void setLastGuess(string arg);
     bool isFirstDigit;
     bool isFirstPlace;
+    bool isFirstGuessingRoundIsFinished;
 };
 } // namespace bullpgia

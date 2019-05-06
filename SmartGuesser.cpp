@@ -10,23 +10,40 @@ string SmartGuesser::guess()
     }
     string guess = "";
     //this means we're in first 10 guesses
-    if ((this->numOfGuess < 10) && (this->sumOfArray) < (this->length))
+    if (this->numOfGuess < 10 && this->sumOfArray < this->length)
     {
         string numOfGuessString = to_string(this->numOfGuess);
-        cout << "string num of guess>>" << numOfGuessString << endl;
         for (int i = 0; i < this->length; i++)
         {
             guess += numOfGuessString;
-            cout << "our guess>>" << guess << endl;
         }
     }
-    else if (this->whichDigit < this->length)
+    else if (this->whichDigit <= this->length - 1)
     {
-        if (this->whichPlace < this->length)
+        //std::cout << "which digit=>" << this->whichDigit << std::endl;
+        //std::cout << "which place==>" << this->whichPlace << std::endl;
+        if (this->whichPlace <= this->length - 1)
         {
             for (int i = 0; i < this->length; i++)
             {
-                if (i == this->whichPlace)
+                if (i == this->whichPlace && this->allRightCharsOrdered.at(whichPlace) == '*')
+                {
+                    guess += this->allRightCharsMessy.at(this->whichDigit);
+                }
+                else
+                {
+                    guess += '*';
+                }
+            }
+            this->whichPlace++;
+        }
+        else
+        {
+            this->whichPlace = 0;
+            this->whichDigit++;
+            for (int i = 0; i < this->length; i++)
+            {
+                if (i == this->whichPlace && this->allRightCharsOrdered.at(whichPlace) == '*')
                 {
                     guess += this->allRightCharsMessy.at(this->whichDigit);
                     //guess += '3';
@@ -38,106 +55,94 @@ string SmartGuesser::guess()
             }
             this->whichPlace++;
         }
-        else if (this->whichPlace == this->length)
-        {
-            this->isFirstPlace = true;
-            for (int i = 0; i < this->length; i++)
-            {
-                if (i == this->whichPlace)
-                {
-                    guess += this->allRightCharsMessy.at(this->whichDigit);
-                    //guess += '3';
-                }
-                else
-                {
-                    guess += '*';
-                }
-            }
-            this->whichPlace = 0;
-            this->isFirstPlace = false;
-            this->whichDigit++;
-            this->isFirstDigit = false;
-        }
     }
     else
     {
         guess = this->lastGuess;
     }
     this->numOfGuess++;
+    // std::cout << "OUR CURRENT GUESS>>" << guess << std::endl;
     return guess;
 }
 
-void SmartGuesser::startNewGame(uint length)
+void SmartGuesser::startNewGame(int length)
 {
+    if (length <= 0)
+    {
+        throw invalid_argument("one of input strings has incorrect length -> it has to be a positive Neutral number");
+    }
     this->length = length;
     this->lastGuess = "";
     this->numOfGuess = 0;
     this->sumOfArray = 0;
     this->whichDigit = 0;
     this->whichPlace = 0;
+    this->allRightCharsOrdered.clear();
     for (int i = 0; i < this->length; i++)
     {
         this->allRightCharsOrdered.push_back('*');
     }
-    this->isFirstDigit = true;
-    this->isFirstPlace = true;
     for (int i = 0; i < 10; i++)
     {
         this->whichNumbersAreIn[i] = 0;
     }
+    this->allRightCharsMessy.clear();
+    isFirstGuessingRoundIsFinished = false;
 }
 
 SmartGuesser::SmartGuesser()
 {
     this->length = -5;
-    this->lastGuess = "";
-    this->numOfGuess = 0;
-    this->sumOfArray = 0;
-    this->whichDigit = 0;
-    this->whichPlace = 0;
 }
 
 void SmartGuesser::learn(calcFunOutput arg)
 {
-    if (this->numOfGuess < 10 && this->sumOfArray < length)
+    if (this->length == -5)
     {
-        cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!sum of array->"<<this->sumOfArray<<endl;
+        throw invalid_argument("HAVEN'T STARTED NEW GAME YET!");
+    }
+    if (this->numOfGuess <= 10 && this->sumOfArray < this->length)
+    {
+        //  cout << "argbull->" << arg.bull<<"for guess "<<this->numOfGuess-1 << endl;
         this->whichNumbersAreIn[this->numOfGuess - 1] = arg.bull;
         sumOfArray += arg.bull;
-        if (this->numOfGuess == 9 || this->sumOfArray == length)
+    }
+    if (this->isFirstGuessingRoundIsFinished == false && (this->numOfGuess - 1 == 9 || this->sumOfArray == this->length))
+    {
+        //    for (int i = 0; i < 10; i++)
+        //     {
+        //         cout << this->whichNumbersAreIn[i] << "//";
+        //     }
+        //     cout << endl;
+        for (int i = 0; i < 10; i++)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                cout << this->whichNumbersAreIn[i] << "//";
-            }
-            cout << endl;
-            for (int i = 0; i < 10; i++)
-            {
-                cout << "which cell->" << i << endl;
+            //cout << "which cell->" << i << endl;
 
-                if (this->whichNumbersAreIn[i] != 0)
+            if (this->whichNumbersAreIn[i] != 0)
+            {
+                //cout << "which guess->" << this->numOfGuess << endl;
+
+                for (int j = 0; j < this->whichNumbersAreIn[i]; j++)
                 {
-                    cout << "which guess->" << this->numOfGuess << endl;
-
-                    for (int j = 0; j < this->whichNumbersAreIn[i]; j++)
-                    {
-                        cout << "went to add a num in VECOTR MESSY" << endl;
-                        cout << "value of cell->" << this->whichNumbersAreIn[i] << "which cell->" << i << endl;
-                        char aboutToGoIn = '0' + i;
-                        this->allRightCharsMessy.push_back(aboutToGoIn);
-                    }
+                    //cout << "went to add a num in VECOTR MESSY" << endl;
+                    //cout << "value of cell->" << this->whichNumbersAreIn[i] << "which cell->" << i << endl;
+                    char aboutToGoIn = '0' + i;
+                    this->allRightCharsMessy.push_back(aboutToGoIn);
                 }
             }
         }
+        this->isFirstGuessingRoundIsFinished = true;
+        // std::cout << "MESSY VECTOR IS ALIVE!!" << endl;
     }
-    else if (this->whichDigit < length)
+    else if (this->whichDigit < length && this->isFirstGuessingRoundIsFinished)
     {
+        //  std::cout << "BULL&PGIA=>" << arg.bull << endl;
         int rightNumOfPlace = 0;
-        if (this->whichPlace == 0 && !this->isFirstPlace)
+        if (this->whichPlace == 0)
         {
             rightNumOfPlace = 3;
         }
-        else if (this->whichPlace != 0)
+        else
         {
             rightNumOfPlace = this->whichPlace - 1;
         }
@@ -148,13 +153,18 @@ void SmartGuesser::learn(calcFunOutput arg)
         }
         if (arg.bull == 1)
         {
-            cout << "size of messy chars VECTOR>>" << this->allRightCharsMessy.size() << endl;
-            cout << "which digit>>" << this->whichDigit << endl;
-
+            //cout << "size of messy chars VECTOR>>" << this->allRightCharsMessy.size() << endl;
+            //cout << "which digit>>" << this->whichDigit << endl;
             this->allRightCharsOrdered.at(rightNumOfPlace) = this->allRightCharsMessy.at(this->whichDigit);
+            // std::cout << "NEW ORDERED VECTOR!" << endl;
+            // for (char c : this->allRightCharsOrdered)
+            // {
+            //     std::cout << c;
+            // }
+            // std::cout << endl;
         }
     }
-    else
+    else if (this->isFirstGuessingRoundIsFinished)
     {
         string lastGuess = "";
         for (char c : this->allRightCharsOrdered)
@@ -162,6 +172,7 @@ void SmartGuesser::learn(calcFunOutput arg)
             lastGuess += c;
         }
         this->setLastGuess(lastGuess);
+        // std::cout << "LAST GUESS >>>>>" << this->lastGuess;
     }
 }
 

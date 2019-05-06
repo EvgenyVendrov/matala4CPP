@@ -9,9 +9,9 @@ namespace bullpgia
 class Guesser
 {
 public:
-    uint length;
+    int length;
 
-    virtual void startNewGame(uint length)
+    virtual void startNewGame(int length)
     {
         this->length = length;
     };
