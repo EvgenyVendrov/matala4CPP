@@ -8,13 +8,17 @@ namespace bullpgia
 {
 class SmartGuesser : public bullpgia::Guesser
 {
+    //this class is a smart guesser which will guess any 4 digit number in under 30 guesses,
+    //and will guess any number with 9 digits at most in under 100 guesses
+    //any other length number will be guessed too - eventually (the algorithem works for any number of digits)
 public:
     SmartGuesser();
     string guess() override;
-    void startNewGame(int length) override;
-    void learn(calcFunOutput arg) override;
+    void startNewGame(const uint length) override;
+    void learn(const calcFunOutput arg) override;
 
 private:
+    string assembleAWord(string &guess);
     int whichPlace;
     int whichDigit;
     vector<char> allRightCharsMessy;
@@ -24,8 +28,6 @@ private:
     int whichNumbersAreIn[10];
     uint numOfGuess;
     void setLastGuess(string arg);
-    bool isFirstDigit;
-    bool isFirstPlace;
     bool isFirstGuessingRoundIsFinished;
 };
 } // namespace bullpgia

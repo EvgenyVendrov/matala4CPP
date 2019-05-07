@@ -8,17 +8,18 @@ namespace bullpgia
 {
 class Guesser
 {
+//basic "guesser" class - which in a way is the interface that define's a guesser from any kind
 public:
     int length;
 
-    virtual void startNewGame(int length)
+    virtual void startNewGame(const uint length)
     {
         this->length = length;
     };
 
     virtual string guess() = 0;
 
-    virtual void learn(calcFunOutput reply)
+    virtual void learn(const calcFunOutput reply)
     {
     }
 
